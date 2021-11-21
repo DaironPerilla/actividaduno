@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -27,11 +28,59 @@ public class UsuarioService {
             }
 
         } catch (Exception e) {
-                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
+
+
+    public ResponseEntity<Usuario> guardarUsuario(Usuario us) {
+        try {
+            Usuario usAuxiliar = usuarioRepository.save(us);
+            return new ResponseEntity<Usuario>(usAuxiliar, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Optional<Usuario>> getById(int id) {
+        try {
+            Optional<Usuario> us = usuarioRepository.findById(id);
+            if (!us.isPresent()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(us, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Optional<Usuario>> getByPriority(String priority) {
+        try {
+            Optional<Usuario> us = usuarioRepository.findByPriority(priority);
+            if (!us.isPresent()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(us, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    public boolean borrarById(Integer id) {
+        try {
+            usuarioRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
 
         }
 
-
     }
+
 
 }
