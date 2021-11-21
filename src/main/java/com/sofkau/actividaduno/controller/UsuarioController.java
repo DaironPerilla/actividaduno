@@ -5,11 +5,10 @@ import com.sofkau.actividaduno.model.Usuario;
 import com.sofkau.actividaduno.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuario")
@@ -23,5 +22,28 @@ public class UsuarioController {
         return usuarioRepository.getAllUsuarios();
     }
 
+    @PostMapping
+    public ResponseEntity<Usuario> guardarUsuario(@RequestBody Usuario usuario){
+        return usuarioRepository.guardarUsuario(usuario);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Optional<Usuario>> buscarById(@PathVariable("id") int id){
+        return usuarioRepository.getById(id);
+    }
+
+    @GetMapping("/query")
+    public ResponseEntity<Optional<Usuario>> getByPriority(@RequestParam("prioridad") String priority){
+        return usuarioRepository.getByPriority(priority);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String eliminarUsuario(@PathVariable("id") int id){
+        boolean respuesta = usuarioRepository.borrarById(id);
+        if (respuesta){
+            return "Se elemino con exito el id: "+id;
+        }
+            return "No se pudo eliminar id: "+id;
+    }
 
 }
