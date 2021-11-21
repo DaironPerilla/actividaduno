@@ -5,6 +5,7 @@ import com.sofkau.actividaduno.model.Usuario;
 import com.sofkau.actividaduno.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioRepository;
 
+    @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios(){
         return usuarioRepository.getAllUsuarios();
     }
