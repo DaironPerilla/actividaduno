@@ -17,6 +17,11 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    /**
+     * Busca todos los usuarios
+     * Retorna un objeto ResponseEntity el cual puede retornar una respuesta del servidor y el objeto
+     * @return ResponseEntity<List<Usuario>>
+     */
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
         try {
             List<Usuario> lista = new ArrayList<>();
@@ -33,7 +38,11 @@ public class UsuarioService {
         }
     }
 
-
+    /**
+     * Guarda en la BD el usuario
+     * Retorna un objeto ResponseEntity el cual puede retornar una respuesta del servidor y el objeto
+     * @return ResponseEntity<Usuario>
+     */
     public ResponseEntity<Usuario> guardarUsuario(Usuario us) {
         try {
             Usuario usAuxiliar = usuarioRepository.save(us);
@@ -44,11 +53,16 @@ public class UsuarioService {
         }
     }
 
+    /**
+     * Busca por id
+     * Retorna un objeto ResponseEntity el cual puede retornar una respuesta del servidor y el objeto
+     * @return ResponseEntity<Optional<Usuario>>
+     */
     public ResponseEntity<Optional<Usuario>> getById(int id) {
         try {
             Optional<Usuario> us = usuarioRepository.findById(id);
             if (!us.isPresent()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(us, HttpStatus.OK);
 
@@ -57,11 +71,16 @@ public class UsuarioService {
         }
     }
 
+    /**
+     * Busca por el valor de prioridad dado
+     * Retorna un objeto ResponseEntity el cual puede retornar una respuesta del servidor y el objeto
+     * @return ResponseEntity<Optional<Usuario>>
+     */
     public ResponseEntity<Optional<Usuario>> getByPriority(String priority) {
         try {
             Optional<Usuario> us = usuarioRepository.findByPriority(priority);
             if (!us.isPresent()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(us, HttpStatus.OK);
 
@@ -70,7 +89,10 @@ public class UsuarioService {
         }
     }
 
-
+    /**
+     * Borra el usuario con la id dada
+     * @return boolean
+     */
     public boolean borrarById(Integer id) {
         try {
             usuarioRepository.deleteById(id);

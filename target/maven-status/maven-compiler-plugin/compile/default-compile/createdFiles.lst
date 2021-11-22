@@ -1,5 +1,6 @@
 com\sofkau\actividaduno\model\Usuario.class
+com\sofkau\actividaduno\service\UsuarioService.class
+com\sofkau\actividaduno\SwaggerConfig.class
 com\sofkau\actividaduno\repository\UsuarioRepository.class
 com\sofkau\actividaduno\ActividadunoApplication.class
-com\sofkau\actividaduno\service\UsuarioService.class
 com\sofkau\actividaduno\controller\UsuarioController.class
